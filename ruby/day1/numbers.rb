@@ -16,8 +16,6 @@ while ubound - lbound > 1
     lbound = guess + 1 if range_above > range_below && range_below > 0
     ubound = guess - 1 if range_above <= range_below && range_above > 0
     puts "num is #{ range_above > range_below ? 'higher' : 'lower'}"
-
-    puts "[#{lbound},#{ubound}] [#{range_above},#{range_below}]"
     guess = gets.to_i
 end
 
