@@ -2,30 +2,23 @@ puts "guess a number between 0 and 99"
 lbound = 0
 ubound = 99
 tries = 0
+range_above = 0
+range_below = 99
 
-while
+guess = gets.to_i
+
+while ubound - lbound > 1
     tries += 1
-    guess = Integer(gets)
-    if guess < 0 || guess > 99
-        puts "CHEATER!"
-        exit
-    end
-
+    puts "CHEATER!" if guess < 0 || guess > 99
     range_above = ubound - guess
     range_below = guess - lbound
-    if range_above < 0 then
-        puts "num is lower"
-    elsif range_below < 0 then
-        puts "num is higher"
-    elsif range_above + range_below <= 1 then
-        puts "you win! only took #{tries} tries"
-        exit
-    elsif range_above > range_below
-        puts "num is higher"
-        lbound = guess + 1
-    else
-        puts "num is lower"
-        ubound = guess - 1
-    end
+    
+    lbound = guess + 1 if range_above > range_below && range_below > 0
+    ubound = guess - 1 if range_above <= range_below && range_above > 0
+    puts "num is #{ range_above > range_below ? 'higher' : 'lower'}"
 
+    puts "[#{lbound},#{ubound}] [#{range_above},#{range_below}]"
+    guess = gets.to_i
 end
+
+puts "you win! only took #{tries} tries"
