@@ -6,17 +6,8 @@ class Tree2
         
         #{}.take(1)[0] = nil, so this is safe
         @node_name, child_hash = data.take(1)[0]
-        
-        @children = []
-        child_hash.each do |k,v|
-            @children.push Tree2.new({k => v})
-        end
+        @children = child_hash.map {|k,v| Tree2.new({k => v}) } if child_hash
     end
-    
-    def load_from_array(name, children)
-        @children = children
-        @node_name = name
-    end 
     
     def visit_all(&block)
         visit &block
@@ -29,7 +20,17 @@ class Tree2
 end
 
 
+empty_tree = Tree2.new()
+
+puts "no child tree:"
+no_children = Tree2.new('mountain_goats'=>{})
+no_children.visit_all {|n| puts n.node_name }
+puts
+
+puts "tree from book:"
 tree = Tree2.new({'grandpa' => {'dad' => {'child 1' => {}, 'child 2' => {}}, 'uncle' => {'child 3' => {}, 'child 4' => {}}}})
 tree.visit_all {|n| puts n.node_name }
+puts
 
+puts "should tell you that you can't have two roots:"
 should_fail = Tree2.new({'test'=>{},'root2'=>{}})
