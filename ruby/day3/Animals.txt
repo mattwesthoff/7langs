@@ -1,0 +1,5 @@
+name, awesomeness
+tiger, pretty sweet
+eagle tiger, way sweet
+monster tiger, not that great
+tigersaur, super awesome
