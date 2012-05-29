@@ -16,6 +16,9 @@ testBag myOtherSlot ::= "this is like calling newSlot"
 testBag slotSummary println
 "notice the setter method newSlot created" println
 
+"also, slotNames:" println
+testBag slotNames println
+
 #say hi four times
 //so many comment options
 /* all the options */
