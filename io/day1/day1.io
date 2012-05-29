@@ -32,3 +32,9 @@ Number setSlot("+", method(right, self addition(right ?asNumber)))
 "now you can, mostly!" println
 (1 + "one") println
 "whoops, don't really change Number haha" println
+
+Sequence + := method(right, self .. right)
+("15" + "07") println
+
+"I guess I'd call Io a strongly and dynamically typed language?" println
+"semantics" println
