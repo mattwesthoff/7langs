@@ -41,18 +41,3 @@ Sequence + := method(right, self .. right)
 
 "I guess I'd call Io a strongly and dynamically typed language?" println
 "semantics" println
-
-//From StackOverflow:
-
-Animal := Object clone do (
-    legs ::= nil    // creates leg slot  & setLegs() setter
-    tail ::= nil    // creates tail slot & setTail() setter
-)
-
-// I think below is more aesthetic 
-Cat := Animal clone setLegs(4) setTail(1)
-
-// compared to this
-Dog := Animal clone do (legs = 4; tail = 1)
-
-//good point
