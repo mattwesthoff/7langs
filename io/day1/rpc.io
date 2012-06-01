@@ -1,6 +1,7 @@
 Sender := Object clone do (
     name ::= nil
-    receivers ::= list()
+    receivers ::= nil
+    init := method(setReceivers(list()))
     addReceiver := method(receiver, receivers append(receiver))
     
     sendMessage := method(msg, receivers foreach(r, r hasLocalSlot(msg) ifTrue(r perform(msg))))
