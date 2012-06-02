@@ -16,7 +16,7 @@ Matrix := Object clone do(
 Object squareBrackets := method(Matrix clone setRows(call message arguments map(x, if(x type == "Message", x arguments, x))))
 
 m := Matrix clone dim(3,4)
-m set(1,2,"hi")
+m set(1,2,"THING PLACE MESSAGE")
 m get(1,2) println
 m println
 
