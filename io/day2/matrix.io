@@ -9,7 +9,7 @@ Matrix := Object clone do(
 
        set := method(x,y,value, rows at(y) atPut(x, value))
        get := method(x,y, rows at(y) at(x))
-       println := method(self rows println)
+       println := method(i := self rows map(y, y join(",")) join("],["); "[[#{i}]]" interpolate println)
 )
 
 //I guess we could do more checking here, but eh
