@@ -10,8 +10,9 @@ Matrix := Object clone do(
        set := method(x,y,value, rows at(y) atPut(x, value))
        get := method(x,y, rows at(y) at(x))
 
-       transpose := method(Matrix clone setRows(rows reverse map(r, r reverse)))
-       transpose_me := method(rows = rows reverse map(r, r reverse); self)
+       //not sure which of these I'd like, maybe modified by asMutable?
+       transpose := method(Matrix clone setRows(rows map(i,r, rows map(c, c at(i)))))
+       transpose_me := method(rows = rows map(i,r, rows map(c, c at(i))); self)
 
        println := method(i := self rows map(y, y join(",")) join("],["); "[[#{i}]]" interpolate println)
 )
@@ -26,5 +27,7 @@ m println
 
 b := [[3,5,6],[7,5,5],[3,2,3]]
 b println
+b get(1,2) println
 b transpose_me println
+b get(2,1) println
 b transpose println
