@@ -1,3 +1,5 @@
+//could handle sublists like addAll, but eh, I get the point
+
 List myAverage := method(
      total := count := 0;
      self foreach(x, 
