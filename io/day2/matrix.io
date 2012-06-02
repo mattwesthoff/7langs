@@ -9,6 +9,10 @@ Matrix := Object clone do(
 
        set := method(x,y,value, rows at(y) atPut(x, value))
        get := method(x,y, rows at(y) at(x))
+
+       transpose := method(Matrix clone setRows(rows reverse map(r, r reverse)))
+       transpose_me := method(rows = rows reverse map(r, r reverse); self)
+
        println := method(i := self rows map(y, y join(",")) join("],["); "[[#{i}]]" interpolate println)
 )
 
@@ -22,3 +26,5 @@ m println
 
 b := [[3,5,6],[7,5,5],[3,2,3]]
 b println
+b transpose_me println
+b transpose println
