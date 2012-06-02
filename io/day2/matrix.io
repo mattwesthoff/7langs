@@ -12,6 +12,7 @@ Matrix := Object clone do(
        println := method(self rows println)
 )
 
+//I guess we could do more checking here, but eh
 Object squareBrackets := method(Matrix clone setRows(call message arguments map(x, if(x type == "Message", x arguments, x))))
 
 m := Matrix clone dim(3,4)
