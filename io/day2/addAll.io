@@ -7,6 +7,7 @@ List addAll := method(
 	 )
 )
 
+//not quite what they asked for, but more fun
 list("5",2,list("4",10,"fifty")) addAll println
 
 list(
