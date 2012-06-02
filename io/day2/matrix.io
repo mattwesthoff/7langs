@@ -1,4 +1,4 @@
-//this doesn't crash on non rectangle lists, but it does do weird things, not
+//this doesn't crash on non-"matrix" lists, but it does do weird things, not
 // sure it belongs on List, but oh well
 List transpose := method(self map(i,r, self map(c, c at (i))))
 
