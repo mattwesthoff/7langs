@@ -1,3 +1,7 @@
+//this doesn't crash on non rectangle lists, but it does do weird things, not
+// sure it belongs on List, but oh well
+List transpose := method(self map(i,r, self map(c, c at (i))))
+
 Matrix := Object clone do(
        rows ::= nil
        init := method(setRows(list()))
@@ -11,8 +15,8 @@ Matrix := Object clone do(
        get := method(x,y, rows at(y) at(x))
 
        //not sure which of these I'd like, maybe modified by asMutable?
-       transpose := method(Matrix clone setRows(rows map(i,r, rows map(c, c at(i)))))
-       transpose_me := method(rows = rows map(i,r, rows map(c, c at(i))); self)
+       transpose := method(Matrix clone setRows(rows transpose))
+       transpose_me := method(rows = rows transpose; self)
 
        println := method(i := self rows map(y, y join(",")) join("],["); "[[#{i}]]" interpolate println)
 )
