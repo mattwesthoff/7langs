@@ -24,6 +24,10 @@ Matrix := Object clone do(
 //I guess we could do more checking here, but eh
 Object squareBrackets := method(Matrix clone setRows(call message arguments map(x, if(x type == "Message", x arguments, x))))
 
+#the following is so much prettier, but it only ends up with a list, and if you put the matrix clone in front,
+# you end up with a matrix with rows containing matrices
+#Object squareBrackets := method(call evalArgs)
+
 m := Matrix clone dim(3,4)
 m set(1,2,"THING PLACE MESSAGE")
 m get(1,2) println
