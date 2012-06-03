@@ -2,6 +2,27 @@
 // sure it belongs on List, but oh well
 List transpose := method(self map(i,r, self map(c, c at (i))))
 
+//no checking, but file has all the methods required 
+#http://www.iolanguage.com/scm/io/docs/reference/index.html#/Core/Core/File/close
+/* inconsistent comments style! */
+matrix_file_impex := Object clone do(
+	   export := method(matrix, filename, 
+	   	  f := File with(filename)
+		  f remove
+		  f openForUpdating
+		  f write(matrix asString asMutable replaceSeq("],[","],\n ["))
+		  f close
+	   )
+
+	   import := method(filename,
+	   	  f := File with(filename)
+		  f openForReading
+		  new_matrix := perform(f readLines join("") asMessage)
+		  f close
+		  new_matrix
+	   )
+)
+
 Matrix := Object clone do(
        rows ::= nil
        init := method(setRows(list()))
@@ -18,7 +39,9 @@ Matrix := Object clone do(
        transpose := method(Matrix clone setRows(rows transpose))
        transpose_me := method(rows = rows transpose; self)
 
-       println := method(i := self rows map(y, y join(",")) join("],["); "[[#{i}]]" interpolate println)
+       asString := method(s := rows map(y, y join(",")) join("],["); "[[#{s}]]" interpolate)
+
+       println := method(asString println)
 )
 
 //I guess we could do more checking here, but eh
@@ -39,3 +62,7 @@ b get(1,2) println
 b transpose_me println
 b get(2,1) println
 b transpose println
+
+matrix_file_impex export(b,"b-matrix.txt")
+c := matrix_file_impex import("b-matrix.txt")
+c println
