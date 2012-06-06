@@ -10,14 +10,14 @@ Philosopher := Object clone do (
     
     eat := method(
         say("eating!")
-        wait(Random value(0,2))
-        say("done eating!")
+        setState("eating")
+        wait(Random value(2,5))
+        setState("thinking")
     )
     
     think := method(
-        say("thinking!")
-        wait(Random value(0,2))
-        say("done thinking!")
+        setState("thinking")
+        wait(Random value(2,5))
     )
     
     sit_down := method(
@@ -34,10 +34,25 @@ Philosopher := Object clone do (
         myForks foreach(fork, table append(fork))
         myForks = list()
         
-        wait(Random value(0,1))
+        yield
     )
     
-    say := method(s, writeln(self type, " ", s))
+    stateString := method(
+        (if(table contains(leftFork), leftFork type, ""))..
+            "["..(if(self myForks contains(leftFork), leftFork type, ""))..""..
+            (self type).." "..(self state)..
+            (if(self myForks contains(rightFork), rightFork type, "")).."]"
+    )
+    
+    say := method(s, nil)
+    #say := method(s, writeln(self type, " ", s))
+)
+
+printState := method(
+    loop(
+        writeln(Aristotle stateString, Avicenna stateString, Kant stateString, Nietzsche stateString, Quine stateString)
+        yield
+    )
 )
 
 Fork1 := Fork clone
@@ -53,6 +68,9 @@ Avicenna := Philosopher clone setLeftFork(Fork2) setRightFork(Fork3)
 Kant := Philosopher clone setLeftFork(Fork3) setRightFork(Fork4)
 Nietzsche := Philosopher clone setLeftFork(Fork4) setRightFork(Fork5)
 Quine := Philosopher clone setLeftFork(Fork5) setRightFork(Fork1)
+
+
+@@printState
 
 loop(
     Aristotle @@sit_down
