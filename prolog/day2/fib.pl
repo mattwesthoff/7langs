@@ -13,5 +13,8 @@ fib_tro(1, 1).
 fib_tro(N, What) :- fib_tro(1, 1, 2, N, What).
 
 %fib_tro(fib(N-2), fib(N-1), current N we've iterated up to , target N, return value)
+%hrmm, this rule should be 'private'?
+%you can call this with bad values of M and N and it'll die
+% M > N is a problem.
 fib_tro(X1, X2, N, N, What) :- What is X1 + X2.
 fib_tro(X1, X2, M, N, What) :- M1 is M + 1, X3 is X1 + X2, fib_tro(X2, X3, M1, N, What).
