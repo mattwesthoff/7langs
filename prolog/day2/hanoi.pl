@@ -1,20 +1,30 @@
-printstate([Col1|[Col2,Col3]]) :- printstate(Col1, Col2, Col3).
+outputCol(0, 0, _).
 
-printstate([],[],[]) :- nl.
+outputCol(N, N, A1) :- 
+	write('-'),
+	A1 is N - 1.
 
-printstate([Row1|Tail1], [Row2|Tail2], [Row3|Tail3]) :- 
-	write(Row1), write('|'), write(Row2), write('|'), write(Row3), nl,
-	printstate(Tail1, Tail2, Tail3).
+outputCol(N, A, A1) :-
+	N > A,
+	write(' '),
+	A1 is A.
 
-hanoi(N) :- printstate([['_    ', '__   ', '___  ', '____ '],['     ','     ','     ','     '],['     ','     ','     ','     ']]).
+output(0,0,0,0).
 
-move([Col1|[Col2|Col3]], From, To) :-
-	write('finish').
+output(N, A, B, C) :-
+	outputCol(N, A, A1),
+	write('|'),
+	outputCol(N, B, B1),
+	write('|'),
+	outputCol(N, C, C1),
+	nl,
+	N1 is N - 1,
+	output(N1, A1, B1, C1).
 
-solve(1, FromPeg, ToPeg, _) :- write(FromPeg), write(' -> '), write(ToPeg), nl.
+solve(1, From, _, To) :- write(From), write(' -> '), write(To), nl.
 
-solve(Discs, FromPeg, ToPeg, OtherPeg) :- 
+solve(Discs, From, Other, To) :- 
 	Discs1 is Discs - 1,
-	solve(Discs1, FromPeg, OtherPeg, ToPeg),
-	solve(1, FromPeg, ToPeg, _),
-	solve(Discs1, OtherPeg, ToPeg, FromPeg).
+	solve(Discs1, From, To, Other),
+	solve(1, From, _, To),
+	solve(Discs1, Other, From, To).
