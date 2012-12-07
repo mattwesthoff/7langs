@@ -78,4 +78,8 @@ hanoi(N) :-
 	vsolve(N, a, b, c),
 	nb_getval(moves, Moves),
 	nb_setval(a, A), nb_setval(b, []), nb_setval(c, []),
-	writeMove(N, Moves).
+	writeMove(N, Moves),
+	length(Moves, Num),
+	PM is 2^N - 1,
+	write('solved in '), write(Num), write(' moves.'), nl,
+	write('2^N-1 = '), write(PM), nl.
