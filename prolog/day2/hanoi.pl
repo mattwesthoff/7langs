@@ -31,13 +31,13 @@ printCols([R1|C1], [R2|C2], [R3|C3]) :-
 	printCols(C1, C2, C3).
 
 printCols(Count, A, B, C) :-
-	nb_getval(A, Col1),
-	nb_getval(B, Col2),
-	nb_getval(C, Col3),
-	padCol(Col1, Count, PCol1),
-	padCol(Col2, Count, PCol2),
-	padCol(Col3, Count, PCol3),
+	padCol(A, Count, PCol1),
+	padCol(B, Count, PCol2),
+	padCol(C, Count, PCol3),
 	printCols(PCol1, PCol2, PCol3).
+printCols(N) :-
+	nb_getval(a, A), nb_getval(b, B), nb_getval(c, C),
+	printCols(N, A, B, C).
 
 createStartCol(N, N, Output, Output).
 createStartCol(N, C, Col, Output) :-
@@ -49,9 +49,36 @@ createStartCol(N, C, Col, Output) :-
 	C1 is C + 1,
 	createStartCol(N, C1, Out1, Output).
 
+writeMove(_, []).
+writeMove(N, [[From|[To|_]]|Rest]) :-
+	write(From), write(' -> '), write(To), nl,
+	nb_getval(From, FromCol), nb_getval(To, ToCol),
+	append([Top], NewFrom, FromCol),
+	append([Top], ToCol, NewTo),
+	nb_setval(From, NewFrom), nb_setval(To, NewTo),
+	printCols(N), nl,
+	writeMove(N, Rest).
+
 hanoi(N) :-
-	createStartCol(N, 0, [], Col1),
-	nb_setval(a, Col1),
-	nb_setval(b, []),
-	nb_setval(c, []),
-	printCols(N, a, b, c).
+	nb_setval(moves, []),
+	createStartCol(N, 0, [], A),
+	write('start:'), nl,
+	printCols(N, A, [], []),
+	vsolve(N, a, b, c),
+	nb_getval(moves, Moves),
+	nb_setval(a, A), nb_setval(b, []), nb_setval(c, []),
+	writeMove(N, Moves).
+
+addMove(From, To) :-
+	nb_getval(moves, Moves),
+	append(Moves, [[From, To]], NewMoves),
+	nb_setval(moves, NewMoves).
+
+vsolve(1, From, _, To) :-
+	addMove(From, To).
+
+vsolve(N, From, Other, To) :- 
+	N1 is N - 1,
+	vsolve(N1, From, To, Other),
+	vsolve(1, From, _, To),
+	vsolve(N1, Other, From, To).
