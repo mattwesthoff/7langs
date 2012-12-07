@@ -59,16 +59,6 @@ writeMove(N, [[From|[To|_]]|Rest]) :-
 	printCols(N), nl,
 	writeMove(N, Rest).
 
-hanoi(N) :-
-	nb_setval(moves, []),
-	createStartCol(N, 0, [], A),
-	write('start:'), nl,
-	printCols(N, A, [], []),
-	vsolve(N, a, b, c),
-	nb_getval(moves, Moves),
-	nb_setval(a, A), nb_setval(b, []), nb_setval(c, []),
-	writeMove(N, Moves).
-
 addMove(From, To) :-
 	nb_getval(moves, Moves),
 	append(Moves, [[From, To]], NewMoves),
@@ -82,3 +72,13 @@ vsolve(N, From, Other, To) :-
 	vsolve(N1, From, To, Other),
 	vsolve(1, From, _, To),
 	vsolve(N1, Other, From, To).
+
+hanoi(N) :-
+	nb_setval(moves, []),
+	createStartCol(N, 0, [], A),
+	write('start:'), nl,
+	printCols(N, A, [], []),
+	vsolve(N, a, b, c),
+	nb_getval(moves, Moves),
+	nb_setval(a, A), nb_setval(b, []), nb_setval(c, []),
+	writeMove(N, Moves).
