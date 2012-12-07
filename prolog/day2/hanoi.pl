@@ -30,7 +30,10 @@ printCols([R1|C1], [R2|C2], [R3|C3]) :-
 	write(R1), write('|'), write(R2), write('|'), write(R3), nl,
 	printCols(C1, C2, C3).
 
-printCols(Count, [Col1| [Col2| [Col3| _]]]) :-
+printCols(Count, A, B, C) :-
+	nb_getval(A, Col1),
+	nb_getval(B, Col2),
+	nb_getval(C, Col3),
 	padCol(Col1, Count, PCol1),
 	padCol(Col2, Count, PCol2),
 	padCol(Col3, Count, PCol3),
@@ -48,5 +51,7 @@ createStartCol(N, C, Col, Output) :-
 
 hanoi(N) :-
 	createStartCol(N, 0, [], Col1),
-	append([Col1], [[],[]], State),
-	printCols(N, State).
+	nb_setval(a, Col1),
+	nb_setval(b, []),
+	nb_setval(c, []),
+	printCols(N, a, b, c).
