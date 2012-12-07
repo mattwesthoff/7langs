@@ -59,13 +59,10 @@ writeMove(N, [[From|[To|_]]|Rest]) :-
 	printCols(N), nl,
 	writeMove(N, Rest).
 
-addMove(From, To) :-
+vsolve(1, From, _, To) :-
 	nb_getval(moves, Moves),
 	append(Moves, [[From, To]], NewMoves),
 	nb_setval(moves, NewMoves).
-
-vsolve(1, From, _, To) :-
-	addMove(From, To).
 
 vsolve(N, From, Other, To) :- 
 	N1 is N - 1,
