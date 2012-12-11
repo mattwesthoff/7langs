@@ -5,6 +5,5 @@ reverse([X|Rest], Result, Output) :-
 	reverse(Rest, NewOut, Output).
 
 smallest([X], X). %last item in a list is the smallest
-smallest([X|Rest], Output) :- X =< Output, NewOut is X, smallest(Rest, NewOut).
-smallest([X|Rest], Output) :- X > Output, NewOut is Output, smallest(Rest, NewOut).
-	
+smallest([Head|Rest], Output) :- smallest(Rest, Val), Val =< Head, Output is Val.
+smallest([Head|Rest], Output) :- smallest(Rest, Val), Head < Val, Output is Head.
