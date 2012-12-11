@@ -9,5 +9,6 @@ smallest([Head|Rest], Output) :- smallest(Rest, Val), Val =< Head, Output is Val
 smallest([Head|Rest], Output) :- smallest(Rest, Val), Head < Val, Output is Head.
 
 mysort([X], [X]).
+%urg, not this easy, I think I need to sort again?? gotta work the traces.
 mysort([Head|Rest], Output) :- mysort(Rest, [Next|NextRest]), Next > Head, append([Head], [Next|NextRest], Output).
 mysort([Head|Rest], Output) :- mysort(Rest, [Next|NextRest]), Next =< Head, append([Next], [Head|NextRest], Output).
