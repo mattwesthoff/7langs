@@ -38,3 +38,13 @@ quicksort([H|List], Output) :-
 	quicksort(Less, Out1),
 	quicksort(Greater, Out2),
 	append(Out1, [H|Out2], Output).
+
+insert(Val, [], [Val]).
+insert(Val, [H|Tail], [H|NewTail]) :- Val > H, insert(Val, Tail, NewTail).
+insert(Val, [H|Tail], [Val|[H|Tail]]) :- Val =< H.
+
+insertsort([], Result, Result).
+insertsort([H|List],Result,Output) :-
+	insert(H, Result, NewResult),
+	insertsort(List, NewResult, Output).
+insertsort(List, Output) :- insertsort(List, [], Output).
