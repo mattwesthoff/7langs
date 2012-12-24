@@ -26,11 +26,11 @@ mysort(Arr, Curr, Output) :-
 	mysort(Rest, NewCurr, Output).
 mysort(Arr, Output) :- mysort2(Arr, [], Output).
 
-pivot(Pivot, [], [], []).
+pivot(_, [], [], []).
 pivot(Pivot, [H|Arr], [H|Less], Greater) :-
-	H =< Pivot, pivot(Pivot, Arr, [H|Less], Greater).
-pivot(Pivot, [H|Arr], Less, Greater) :-
-	H > Pivot, pivot(Pivot, Arr, Less, [H|Greater]).
+	H =< Pivot, pivot(Pivot, Arr, Less, Greater).
+pivot(Pivot, [H|Arr], Less, [H|Greater]) :-
+	H > Pivot, pivot(Pivot, Arr, Less, Greater).
 
 quicksort([],[]).
 quicksort([H|List], Output) :-
