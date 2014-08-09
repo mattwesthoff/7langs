@@ -1,12 +1,18 @@
 import org.scalatest._
 
+sealed abstract class result
+case object x extends result
+case object o extends result
+case object draw extends result
+case object undecided extends result
+
 object TicTacToe {
-	def isGroupWinner(row : Array[String]) : Boolean = {
-		if (row(0) == "") return (false)
+	def isGroupWinner(row : Array[String]) : result = {
+		if (row(0) == "") return (undecided)
 		if (row(0) == row(1)) {
-			if (row(0) == row(2)) return (true)			
+			if (row(0) == row(2)) return (x)			
 		}
-		return (false)
+		return (undecided)
 	}
 
 	def isGameOver(game : Array[Array[String]]) : Boolean = {
@@ -18,7 +24,7 @@ object TicTacToe {
 			checks +:= (for (row <- game) yield game(i)(game.length - 1 - i)) //right->left diag
 		}
 
-		checks.foreach { row => if (TicTacToe.isGroupWinner(row)) return (true) }
+		checks.foreach { row => if (TicTacToe.isGroupWinner(row) != undecided) return (true) }
 
 		return (false)
 	}
