@@ -1,7 +1,7 @@
 import org.scalatest._
 
 object TicTacToe {
-	def isRowWinner(row : Array[String]) : Boolean = {
+	def isGroupWinner(row : Array[String]) : Boolean = {
 		if (row(0) == "") return (false)
 		if (row(0) == row(1)) {
 			if (row(0) == row(2)) return (true)			
@@ -10,25 +10,15 @@ object TicTacToe {
 	}
 
 	def isGameOver(game : Array[Array[String]]) : Boolean = {
-		game.foreach { row => if (TicTacToe.isRowWinner(row)) return (true) }
-		if (isRowWinner(for (row <- game) yield row(0) )) return (true)
-		if (isRowWinner(for (row <- game) yield row(1) )) return (true)
-		if (isRowWinner(for (row <- game) yield row(2) )) return (true)
 
-		var i = 0
-		val diaglr = for (row <- game) yield { 
-			i += 1
-			row(i - 1)
+		var checks = game
+		for (i <- 0 until game.length) {
+			checks +:= (for (row <- game) yield row(i))  //columns
+			checks +:= (for (row <- game) yield game(i)(i)) //left->right diag
+			checks +:= (for (row <- game) yield game(i)(game.length - 1 - i)) //right->left diag
 		}
 
-		if (isRowWinner(diaglr)) return (true)
-
-		i = 2
-		val diagrl = for (row <- game) yield { 
-			i -= 1
-			row(i + 1)
-		}
-		if (isRowWinner(diagrl)) return true
+		checks.foreach { row => if (TicTacToe.isGroupWinner(row)) return (true) }
 
 		return (false)
 	}
