@@ -23,7 +23,7 @@ object TicTacToe {
 			checks +:= (for (row <- game) yield row(i))  //columns
 		}
 
-		checks +:= (for (i <- boardRange) yield game(i)(i)) //left->right diag
+		checks +:= (for (i <- boardRange) yield game(i)(i))
 		checks +:= (for (i <- boardRange) yield game(i)(game.length - 1 - i))
 
 		checks.foreach { row => if (TicTacToe.isGroupWinner(row) != undecided) return (true) }
@@ -35,6 +35,11 @@ object TicTacToe {
 class TicTacToeSpec extends FlatSpec with Matchers {
 	"A Game" should "not be over if it's empty" in {
 		var game = Array(Array("","",""),Array("","",""),Array("","",""))
+		TicTacToe.isGameOver(game) should be (false)
+	}
+
+	it should "not be over if no one has one and there are still moves" in {
+		var game = Array(Array("o","x","o"),Array("x","x","o"),Array("x","",""))
 		TicTacToe.isGameOver(game) should be (false)
 	}
 
