@@ -4,6 +4,7 @@
 -export([total_price/1]).
 -export([tic_tac_toe/1]).
 -export([tic_tac_toe_again/1]).
+-export([tic_tac_prolog/1]).
 
 value_at(Key, Map) -> [First | _] = [V || {K, V} <- Map, K =:= Key], First.
 value_at_better(Key, Map) -> hd([V || {K, V} <- Map, K =:= Key]).
@@ -51,3 +52,18 @@ tic_tac_toe_again(Board) ->
 		Draw -> draw;
 		true -> unfinished
 	end. 
+
+tic_tac_prolog([P, P, P, _, _, _, _, _, _]) -> P;
+tic_tac_prolog([_, _, _, P, P, P, _, _, _]) -> P;
+tic_tac_prolog([_, _, _, _, _, _, P, P, P]) -> P;
+tic_tac_prolog([P, _, _, P, _, _, P, _, _]) -> P;
+tic_tac_prolog([_, P, _, _, P, _, _, P, _]) -> P;
+tic_tac_prolog([_, _, P, _, _, P, _, _, P]) -> P;
+tic_tac_prolog([P, _, _, _, P, _, _, _, P]) -> P;
+tic_tac_prolog([_, _, P, _, P, _, P, _, _]) -> P;
+tic_tac_prolog(Board) ->
+	Draw = lists:all(fun(I) -> I =:= o orelse I =:= x end, Board),
+	if 
+		Draw -> draw;
+		true -> unfinished
+	end.
