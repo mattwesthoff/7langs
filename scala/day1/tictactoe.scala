@@ -18,11 +18,13 @@ object TicTacToe {
 	def isGameOver(game : Array[Array[String]]) : Boolean = {
 
 		var checks = game
-		for (i <- 0 until game.length) {
+		val boardRange = (0 until game.length).toArray
+		for (i <- boardRange) {
 			checks +:= (for (row <- game) yield row(i))  //columns
-			checks +:= (for (row <- game) yield game(i)(i)) //left->right diag
-			checks +:= (for (row <- game) yield game(i)(game.length - 1 - i)) //right->left diag
 		}
+
+		checks +:= (for (i <- boardRange) yield game(i)(i)) //left->right diag
+		checks +:= (for (i <- boardRange) yield game(i)(game.length - 1 - i))
 
 		checks.foreach { row => if (TicTacToe.isGroupWinner(row) != undecided) return (true) }
 
