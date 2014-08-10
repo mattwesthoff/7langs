@@ -22,5 +22,5 @@ count_to_ten(T) when T < 10 -> io:write(T), count_to_ten(T + 1).
 
 % use matching to selectively print "success" or "error: message" given input of the form {error, Message} or success
 % io:write was outputting lists of ints, chars makes it more like chars?
-success_or_error({error, Message}) -> io:put_chars(Message ++ "\n");
-success_or_error(success) -> io:put_chars("success\n").
+success_or_error({error, Message}) -> io:fwrite(Message ++ "\n");
+success_or_error(success) -> io:fwrite("success\n").
