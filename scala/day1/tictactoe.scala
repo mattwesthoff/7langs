@@ -8,13 +8,14 @@ case object Ongoing extends result
 
 object TicTacToe {
 	def isGroupWinner(group : Array[String]) : result = {
-		if (group(0) == "") return (Ongoing)
-		if (group(0) == group(1)) {
-			if (group(0) == group(2)) {
-				if (group(0) == "o") return O else return X
+		group.groupBy(i => i).map(t => (t._1, t._2.length)).foreach { p => p._1 match {
+				case "x" => if (p._2 == group.length) return X
+				case "o" => if (p._2 == group.length) return O
+				case "" => return Ongoing
+				case _ =>
 			}
 		}
-		return (Ongoing)
+		return Draw
 	}
 
 	def isGameOver(game : Array[Array[String]]) : result = {
@@ -28,18 +29,19 @@ object TicTacToe {
 		checks +:= (for (i <- boardRange) yield game(i)(i))
 		checks +:= (for (i <- boardRange) yield game(i)(game.length - 1 - i))
 
+		var draw = true
 		checks.foreach { 
 			row => {
 				TicTacToe.isGroupWinner(row) match {
 					case X => return X
 					case O => return O
+					case Ongoing => draw = false
 					case Draw => 
-					case Ongoing =>
 				}
 			}
 		}
 
-		return (Ongoing)
+		if (draw) return Draw else Ongoing
 	}
 }
 
@@ -74,5 +76,10 @@ class TicTacToeSpec extends FlatSpec with Matchers {
     	TicTacToe.isGameOver(game) should be (O)
     	game = Array(Array("o","x","x"),Array("","x",""),Array("x","",""))
     	TicTacToe.isGameOver(game) should be (X)
+  	}
+
+  	it should "be a draw if no one won but no empty spaces" in {
+  		var game = Array(Array("x","o","x"),Array("o","x","o"),Array("o","x","o"))
+  		TicTacToe.isGameOver(game) should be (Draw)
   	}
 }
