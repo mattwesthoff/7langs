@@ -1,0 +1,4 @@
+scalac censor.scala
+scalac -cp .:../scalatest_2.11-2.2.1.jar censortests.scala
+scala -cp ../scalatest_2.11-2.2.1.jar:. org.scalatest.run CensorSpec
+rm *.class
