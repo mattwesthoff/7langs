@@ -1,3 +1,3 @@
 (ns day1.unless)
 
-(defmacro unless [test body] (list 'if (list 'not test) body))
+(defmacro unless [condition & paths] (conj (reverse paths) condition 'if))
