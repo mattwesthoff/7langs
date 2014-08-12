@@ -1,0 +1,32 @@
+day1
+====
+
+- how many different ways can you find to write allEven (filter a list to only show evens)
+- write a function that takes a list and returns the same list in reverse
+- write a function that builds two-tuples with all the possible combinations of two of the colors: black white blue yellow red, order is not a different pair
+- write a list comp to build a childhood mult table.  The table would be a list of three-tuples where the first two are integers from 1-12 and the third is the product of the first two
+- solve the map-coloring problem
+
+day2
+====
+find a way to sort lists
+- write a sort that takes a list and returns a sorted list
+- write a sort that takes a list and a function that compares its two arguments and then returns a sorted list
+- write a function to convert a string to a number. The string should be in the form of $2,345,678.99 and can possible have leading zeroes
+- write a function that takes an argument x and returns a lazy sequence that has every third number, starting with x.  Then write a function that includes every fifth number, beginning with y. combine those functions through composition to return every eigth number, beginning with x+y.
+- use a partially applied function to define a function that will return half of a number and another that will append \n to the end of any string.
+
+bonus:
+- write a function to determine the GCD of two integers
+- create a lazy seq of prime numbers
+- break a long string into individual lines at proper word boundaries
+- add line numbers to the previous exercise
+- to the above exercise add the functions to left, right, and fully justify the text with spaces (making both margins straight)
+
+day3
+====
+- write a function that looks up a hash table value that uses the maybe monad. write a hash that stores other hashes, several levels deep.
+- represent a maze in haskell. You'll need a Maze type and a Node type, as well as a function to return a node given it's coordinates. the node should have a list of exits to other nodes.
+- Use a List Monad to solve the maze.
+- implement a monad in a nonfunctional language (http://moonbase.rydia.net/mental/writings/programming/monads-in-ruby/)
+
