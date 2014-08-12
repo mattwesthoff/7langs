@@ -9,3 +9,7 @@
 	; if the chairs are fill all new customers turn away
 	; haircuts take 20 ms
 	; after a customer receives a haircut he gets up a leaves
+
+(ns day1.core-test
+  (:require [clojure.test :refer :all]
+            [day1.sleeping-barber :refer :all]))
