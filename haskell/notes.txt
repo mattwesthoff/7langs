@@ -29,4 +29,3 @@ day3
 - represent a maze in haskell. You'll need a Maze type and a Node type, as well as a function to return a node given it's coordinates. the node should have a list of exits to other nodes.
 - Use a List Monad to solve the maze.
 - implement a monad in a nonfunctional language (http://moonbase.rydia.net/mental/writings/programming/monads-in-ruby/)
-
