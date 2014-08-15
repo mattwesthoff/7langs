@@ -16,6 +16,10 @@
 (def barber-working? (ref false))
 (def walkouts (ref 0))
 
+; helper functions
+(defn customer-waiting? [] (< @available-chairs 3))
+(defn work-to-do? [] (or @running (customer-waiting?)))
+
 ; customer behavior
 (defn customer-enters []
 	(dosync (if (> @available-chairs 0)
@@ -40,7 +44,7 @@
 
 ; barber loop
 (defn barber []
-	(future (while (or @running (< @available-chairs 3)) (if (not @barber-working?) (cut-hair 20)))))
+	(future (while (work-to-do?) (if (not @barber-working?) (cut-hair 20)))))
 
 (defn -main []
 	(marketing)
