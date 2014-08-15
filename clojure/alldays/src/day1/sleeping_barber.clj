@@ -10,6 +10,9 @@
 	; haircuts take 20 ms
 	; after a customer receives a haircut he gets up a leaves
 
+; I didn't really use a "barber chair", or customers waking up the barber
+;  could just make a ref for customer-ringing-bell
+
 (def running (ref true))
 (def available-chairs (ref 3))
 (def satisfied-customers (ref 0))
@@ -44,12 +47,14 @@
 
 ; barber loop
 (defn barber []
-	(future (while (work-to-do?) (if (not @barber-working?) (cut-hair 20)))))
+	(future (while (work-to-do?) 
+		(if (not @barber-working?) 
+			(cut-hair 20)))))
 
 (defn -main []
 	(marketing)
 	(barber)
-	(Thread/sleep 60000)
+	(Thread/sleep 10000)
 	(dosync (ref-set running false))
 	(print "haircuts: " @satisfied-customers " walkouts: " @walkouts "\n")
 	(shutdown-agents))
