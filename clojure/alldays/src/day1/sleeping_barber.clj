@@ -26,7 +26,7 @@
 (defn marketing []
 	(future (while @running 
 		(Thread/sleep (+ 10 (rand-int 20)))
-		customer-enters)))
+		(customer-enters))))
 
 ; barber behavior
 (defn cut-hair [sleep]
