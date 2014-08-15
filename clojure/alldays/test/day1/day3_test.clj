@@ -19,3 +19,11 @@
 		(is (= 1 (dosync (ref-set available-chairs 1))))
 		(customer-enters)
 		(is (= 0 @available-chairs))))
+
+(deftest new-customer-walks-out-if-no-seats
+	(testing "no seats means no customer"
+		(is (= 0 (dosync (ref-set available-chairs 0))))
+		(is (= 0 (dosync (ref-set walkouts 0))))
+		(customer-enters)
+		(is (= 1 @walkouts))
+		(is (= 0 @available-chairs))))
