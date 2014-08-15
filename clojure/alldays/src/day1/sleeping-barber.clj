@@ -1,1 +1,0 @@
-(ns day1.sleeping-barber)

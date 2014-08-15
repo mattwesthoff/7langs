@@ -10,6 +10,12 @@
 	; haircuts take 20 ms
 	; after a customer receives a haircut he gets up a leaves
 
-(ns day1.core-test
+(ns day1.day3-test
   (:require [clojure.test :refer :all]
             [day1.sleeping-barber :refer :all]))
+
+(deftest new-customer-fills-seat-if-available
+	(testing "a customer walking in the door occupies a seat if one is available"
+		(is (= 1 (dosync (ref-set available-chairs 1))))
+		(customer-enters)
+		(is (= 0 @available-chairs))))
